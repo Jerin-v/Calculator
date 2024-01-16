@@ -1,7 +1,7 @@
 let firstNum = null
 let secondNum = null
 let operator = null
-let display = 0
+let displayValue = 0
 let buttons = document.querySelectorAll("button")
 
 
@@ -40,11 +40,15 @@ function operate(a, b, op) {
     }
 }
 
+updateDisplay()
+
 function clickButtons() {
     for(let i = 0; i < buttons.length; i++) {
         buttons[i].addEventListener('click', function() {
             if(buttons[i].classList.contains("number")) {
-                console.log("You finally clicked a number")
+                displayValue = buttons[i].value
+                console.log(displayValue)
+                updateDisplay()
             } else {
                 console.log("You clicked an operand")
             }
@@ -52,7 +56,14 @@ function clickButtons() {
     }
 }
 
+function updateDisplay() {
+    let display = document.querySelector(".display")
+    display.textContent += " " + displayValue
+}
 
+function clear() {
+    
+}
 
 
 // LMAOOO its because I didn't initialize the i variable 
