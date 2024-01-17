@@ -46,23 +46,41 @@ function clickButtons() {
     for(let i = 0; i < buttons.length; i++) {
         buttons[i].addEventListener('click', function() {
             if(buttons[i].classList.contains("number")) {
-                displayValue = buttons[i].value
+                inputNumber(buttons[i].value)
                 console.log(displayValue)
                 updateDisplay()
             } else {
-                console.log("You clicked an operand")
+                console.log("You clicked an operator")
             }
         })
     }
 }
 
+function inputNumber(num) {
+    if(operator == null) {
+        if(displayValue == 0) {
+            displayValue = num
+        } else if (displayValue == firstNum) {
+            displayValue = num
+        } else {
+            displayValue += num
+        }
+    } else {
+        if(displayValue == firstNum) {
+            displayValue = num
+        } else {
+            displayValue += num
+        }
+    }
+}
+
 function updateDisplay() {
     let display = document.querySelector(".display")
-    display.textContent += " " + displayValue
+    display.textContent = displayValue
 }
 
 function clear() {
-    
+
 }
 
 
