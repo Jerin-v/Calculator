@@ -51,8 +51,9 @@ function clickButtons() {
                 updateDisplay()
             } else if (buttons[i].classList.contains("operator")) {
                 inputOperator(buttons[i].value)
-            } else {
-
+            } else if(buttons[i].classList.contains("equals")){
+                inputEquals()
+                updateDisplay()
             }
         })
     }
@@ -92,6 +93,16 @@ function inputOperator(operator) {
         firstNum = displayValue
     }
 } 
+
+function inputEquals() {
+    if(firstOperator == null) {
+        displayValue = displayValue
+    } else {
+       secondNum = displayValue
+       result = operate(Number(firstNum), Number(secondNum), firstOperator)
+       displayValue = result  
+    }
+}
 
 function updateDisplay() {
     let display = document.querySelector(".display")
