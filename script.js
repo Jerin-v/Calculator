@@ -1,6 +1,7 @@
 let firstNum = null
 let secondNum = null
-let operator = null
+let firstOperator = null
+let secondOperator = null
 let displayValue = 0
 let buttons = document.querySelectorAll("button")
 
@@ -47,17 +48,18 @@ function clickButtons() {
         buttons[i].addEventListener('click', function() {
             if(buttons[i].classList.contains("number")) {
                 inputNumber(buttons[i].value)
-                console.log(displayValue)
                 updateDisplay()
+            } else if (buttons[i].classList.contains("operator")) {
+                inputOperator(buttons[i].value)
             } else {
-                console.log("You clicked an operator")
+
             }
         })
     }
 }
 
 function inputNumber(num) {
-    if(operator == null) {
+    if(firstOperator == null) {
         if(displayValue == 0) {
             displayValue = num
         } else if (displayValue == firstNum) {
@@ -74,9 +76,27 @@ function inputNumber(num) {
     }
 }
 
+function inputOperator(operator) {
+    if(firstOperator == null && secondOperator == null) {
+        firstOperator = operator
+        firstNum = displayValue
+        console.log(firstNum)
+        
+    } else if(firstOperator != null && secondOperator == null) {
+        secondOperator = operator
+        secondNum = displayValue
+        console.log("second number: " + secondNum)
+        result = operate(Number(firstNum), Number(secondNum), operator)
+        console.log(result)
+        displayValue = result
+        firstNum = displayValue
+    }
+} 
+
 function updateDisplay() {
     let display = document.querySelector(".display")
     display.textContent = displayValue
+    
 }
 
 function clear() {
