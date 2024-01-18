@@ -1,8 +1,9 @@
 let firstNum = null
 let secondNum = null
-let firstOperator = null
+let operator = null
 let secondOperator = null
 let displayValue = 0
+let shouldResetScreen = false
 let buttons = document.querySelectorAll("button")
 
 
@@ -51,6 +52,7 @@ function clickButtons() {
                 updateDisplay()
             } else if (buttons[i].classList.contains("operator")) {
                 inputOperator(buttons[i].value)
+                updateDisplay()
             } else if(buttons[i].classList.contains("equals")){
                 inputEquals()
                 updateDisplay()
@@ -62,62 +64,84 @@ function clickButtons() {
     }
 }
 
+// function inputNumber(num) {
+//     if(firstOperator == null) {
+//         if(displayValue == 0) {
+//             displayValue = num
+//         } else if (displayValue == firstNum) {
+//             displayValue = num
+//         } else {
+//             displayValue += num
+//         }
+//     } else {
+//         if(displayValue == firstNum) {
+//             displayValue = num
+//         } else {
+//             displayValue += num
+//         }
+//     }
+// }
+
+// function inputOperator(operator) {
+//     if(firstOperator == null) {
+//         firstOperator = operator
+//         firstNum = displayValue
+//     } else if(firstOperator != null && secondOperator == null){
+//         secondOperator = operator
+//         secondNum = displayValue
+//         result = operate(Number(firstNum), Number(secondNum), firstOperator)
+//         displayValue = result
+//         firstNum = displayValue
+//     } else {
+//         secondNum = displayValue
+//         result = operate(Number(firstNum), Number(secondNum), secondOperator)
+//         secondOperator = operator
+//         displayValue = result
+//         firstNum = displayValue
+//     }
+// }
+
 function inputNumber(num) {
-    if(firstOperator == null) {
-        if(displayValue == 0) {
-            displayValue = num
-        } else if (displayValue == firstNum) {
-            displayValue = num
-        } else {
-            displayValue += num
-        }
-    } else {
-        if(displayValue == firstNum) {
-            displayValue = num
-        } else {
-            displayValue += num
-        }
+    if(displayValue == 0 || shouldResetScreen) {
+    resetScreen()
     }
+    displayValue += num
+    
 }
 
-function inputOperator(operator) {
-    if(firstOperator == null && secondOperator == null) {
-        firstOperator = operator
-        firstNum = displayValue
-        console.log(firstNum)
-        
-    } else if(firstOperator != null && secondOperator == null) {
-        secondOperator = operator
-        secondNum = displayValue
-        console.log("second number: " + secondNum)
-        result = operate(Number(firstNum), Number(secondNum), operator)
-        console.log("result: " + result)
-        displayValue = result
-        firstNum = displayValue
-    } else {
-        secondOperator = operator
-        secondNum = displayValue
-        result = operate(Number(firstNum), Number(secondNum), operator)
-        displayValue = result
-        firstNum = displayValue
+function inputOperator(op) {
+    if(operator != null) evaluate()
+    firstNum = displayValue
+    operator = op
+    shouldResetScreen = true
+}
 
-    }
-} 
+function evaluate() {
+    secondNum = displayValue
+    displayValue = operate(Number(firstNum), Number(secondNum), operator)
+    operator = null
+}
 
 function inputEquals() {
-    if(firstOperator == null) {
+    if(operator == null) {
         displayValue = displayValue
     } else {
        secondNum = displayValue
-       result = operate(Number(firstNum), Number(secondNum), firstOperator)
-       displayValue = result  
+       result = operate(Number(firstNum), Number(secondNum), operator)
+       displayValue = result
+       firstNum = displayValue //always sets firstNum to solution of first two numbers 
+       operator = null
     }
+}
+
+function resetScreen() {
+    displayValue = ""
+    shouldResetScreen = false
 }
 
 function updateDisplay() {
     let display = document.querySelector(".display")
     display.textContent = displayValue
-    
 }
 
 function clear() {
