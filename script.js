@@ -54,6 +54,9 @@ function clickButtons() {
             } else if(buttons[i].classList.contains("equals")){
                 inputEquals()
                 updateDisplay()
+            } else if(buttons[i].classList.contains("clear")) {
+                clear()
+                updateDisplay()
             }
         })
     }
@@ -88,9 +91,16 @@ function inputOperator(operator) {
         secondNum = displayValue
         console.log("second number: " + secondNum)
         result = operate(Number(firstNum), Number(secondNum), operator)
-        console.log(result)
+        console.log("result: " + result)
         displayValue = result
         firstNum = displayValue
+    } else {
+        secondOperator = operator
+        secondNum = displayValue
+        result = operate(Number(firstNum), Number(secondNum), operator)
+        displayValue = result
+        firstNum = displayValue
+
     }
 } 
 
@@ -111,7 +121,12 @@ function updateDisplay() {
 }
 
 function clear() {
-
+    displayValue = 0
+    firstNum = null
+    secondNum = null
+    firstOperator = null
+    secondOperator = null
+    result = null
 }
 
 
