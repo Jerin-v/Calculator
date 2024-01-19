@@ -64,43 +64,6 @@ function clickButtons() {
     }
 }
 
-// function inputNumber(num) {
-//     if(firstOperator == null) {
-//         if(displayValue == 0) {
-//             displayValue = num
-//         } else if (displayValue == firstNum) {
-//             displayValue = num
-//         } else {
-//             displayValue += num
-//         }
-//     } else {
-//         if(displayValue == firstNum) {
-//             displayValue = num
-//         } else {
-//             displayValue += num
-//         }
-//     }
-// }
-
-// function inputOperator(operator) {
-//     if(firstOperator == null) {
-//         firstOperator = operator
-//         firstNum = displayValue
-//     } else if(firstOperator != null && secondOperator == null){
-//         secondOperator = operator
-//         secondNum = displayValue
-//         result = operate(Number(firstNum), Number(secondNum), firstOperator)
-//         displayValue = result
-//         firstNum = displayValue
-//     } else {
-//         secondNum = displayValue
-//         result = operate(Number(firstNum), Number(secondNum), secondOperator)
-//         secondOperator = operator
-//         displayValue = result
-//         firstNum = displayValue
-//     }
-// }
-
 function inputNumber(num) {
     if(displayValue == 0 || shouldResetScreen) {
     resetScreen()
@@ -152,17 +115,5 @@ function clear() {
     secondOperator = null
     result = null
 }
-
-
-// LMAOOO its because I didn't initialize the i variable 
-// function clickButtons() {
-//     for(i = 0; i < buttons.length; i++) {
-//         buttons[i].addEventListener('click', function() {
-//             if(buttons[i].classList.contains("number")) {
-//             console.log("you just clicked a number")
-//         }
-//     })
-//     }
-// }
 
 clickButtons()
